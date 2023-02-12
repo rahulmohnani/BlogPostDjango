@@ -5,7 +5,7 @@ from .forms import PostForm, EditForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from datetime import date
-from django.contrib.messages.views import SuccessMessageMixin
+
 
 def like_view(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))

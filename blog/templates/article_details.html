@@ -13,8 +13,10 @@
   <a href="{% url 'update_post' post.pk %}" class="float-right"> <button class="btn btn-sm btn-info mt-4 ml-2">Update</button></a>
   {% endif %}
     <h1>{{ post.title }}</h1>
-    <small>Category: {{ post.category }}</small>
-    <br>
+    {% if post.category %}
+      <small><a href="{% url 'category' post.category|slugify %}" class="text-dark ml-2">{{ post.category }}</a></small>
+      <br>
+    {% endif %}
     <small>By:
     <a href="{% url 'show_profile_page' post.author.profile.id  %}">
         {{ post.author.first_name }} 
@@ -122,9 +124,11 @@
           <div class="col-md-10">
             <div class="card-body">
               <a href="{% url 'show_profile_page' post.author.profile.id %}" class="text-dark"><h4 class="card-title text-decoration-none">{{ post.author.first_name }} {{ post.author.last_name }}</h4></a>
+              {% if post.bio %}  
               <p class="card-text">
                 {{ post.author.profile.bio|safe }}
               </p>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -144,7 +148,11 @@
             <small class="text-muted">
               By: {{ post.author.first_name }} {{ post.author.last_name }}
             </small>
-              <p>{{ post.body|safe|slice:'250' }}</p>
+            {% if post.bio %}  
+            <p class="card-text">
+              {{ post.author.profile.bio|safe }}
+            </p>
+            {% endif %}
               <br>
               <br>
               <a href="{% url 'article-detail' post.id %}">

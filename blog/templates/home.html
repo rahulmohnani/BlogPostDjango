@@ -93,7 +93,9 @@
             <small class="ml-2">
               {{ post.post_date }}
             </small>
+            {% if post.category %}
             <small><a href="{% url 'category' post.category|slugify %}" class="text-dark ml-2">{{ post.category }}</a></small>
+            {% endif %} 
             <br />
             <p class="card-text">
               {{ post.body|slice:'300'|safe }}

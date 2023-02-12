@@ -8,6 +8,7 @@
 
 <div class="container my-3">
     <h2>Search results : </h2>
+    {% if searched %}
     <h5 class="text-muted">You searched for {{ searched }}</h5>
     {% for user in users %}
     <div class="card mb-3">
@@ -88,9 +89,7 @@
                 {% else %}
                 <a href="{% url 'login' %}" class="btn btn-secondary btn-sm">Read More</a>
                 {% endif %}
-
                 </div>
-              
               </div>
             </div>
             </div>
@@ -98,5 +97,10 @@
         </div>
     </section>
     {% endfor %}
+    {% else %}
+    <div class="text-muted">
+      Nothing to show....
+    </div>
+    {% endif %}
     </div>
 {% endblock %}

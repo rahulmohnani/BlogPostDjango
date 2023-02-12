@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-3">
+    <h2>Search results : </h2>
+    <h5 class="text-muted">You searched for {{ searched }}</h5>
+    {% for user in users %}
+    <div class="card mb-3">
+      <div class="row no-gutters">
+        <a href="{% url 'show_profile_page' user.profile.id %}"></a>
+        <div class="col-md-2">
+          {% if user.profile.profile_pic %}
+              <img src="{{ user.profile.profile_pic.url }}" class="card-img">
+              {% else %}
+              <img src="{% static 'blog/images/default_profile_pic.png' %}" class="card-img">
+          {% endif %}
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <a href="{% url 'show_profile_page' user.profile.id %}" class="text-dark"><h4 class="card-title text-decoration-none">{{ user.first_name }} {{ user.last_name }}</h4></a>
+            <p class="card-text">
+              {{ user.profile.bio|safe }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% for post in all_posts  %}
+    <section>
+      <div class="container py-4">
+        <div class="card">
+          <div class="row">
+            {% if  post.header_image %}
+            <div class="col-md-3">
+                <img src="{{ post.header_image.url }}"  width="270" height="255"/>
+            </div>
+            {% endif %}
+            <div class="col-md-9 px-1">
+              <div class="card-block px-3">
+                <br>
+                <div class="col-0 mr-3">
+                  {% if user.is_authenticated %}
+                  {% if post.author.id == user.id %}
+                  <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm dropdown-toggle float-right"
+                  data-toggle="dropdown"></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="{% url 'update_post' post.pk %}" class="dropdown-item">Edit</a>
+                      <a href="{% url 'delete_post' post.pk %}" class="dropdown-item">Delete</a>
+                    </li>
+                  </ul>
+                  {% endif %}
+                  {% endif %}
+                <h4 class="card-title">
+                  {{ post.title }}
+                </h4>
+                {% if user.is_authenticated %}
+                <small>
+                  By: <a href="{% url 'show_profile_page' post.author.profile.id  %}" class="text-dark">
+                    {{post.author.first_name }} {{ post.author.last_name }}
+                  </a>
+                </small>
+                {% else %}
+                <small>
+                  By: <a href="{% url 'login'  %}" class="text-dark">
+                    {{post.author.first_name }} {{ post.author.last_name }}
+                  </a>
+                </small>              
+                {% endif %}
+                <small class="ml-2">
+                  {{ post.post_date }}
+                </small>
+                <small><a href="{% url 'category' post.category|slugify %}" class="text-dark ml-2">{{ post.category }}</a></small>
+                <br />
+                <p class="card-text">
+                  {{ post.body|slice:'300'|safe }}
+                </p>        
+                {% if user.is_authenticated %}
+                  <a href="{% url 'article-detail' post.pk %}" class="btn btn-secondary btn-sm">Read More</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-secondary btn-sm">Read More</a>
+                {% endif %}
+
+                </div>
+              
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+    </section>
+    {% endfor %}
+    </div>
+{% endblock %}

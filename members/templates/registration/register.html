@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <h4>Register</h4>
+    <!-- <form method="post" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-secondary">Register</button>
+    </form> -->
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        {% for fm in form %}
+        <div class="form-group my-3">
+            {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+        </div>
+        {% endfor %}
+        <input type="submit" value="Submit" class="btn btn-secondary">
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3">{{errors}}</p>
+            {% endfor %}
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

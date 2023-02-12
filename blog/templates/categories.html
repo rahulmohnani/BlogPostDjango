@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Categories 
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <br>
+    {% if category_posts %}
+    <h3>{{ cats|title }}</h3>
+    {% for post in category_posts %}
+<section>
+  <div class="container py-4">
+    <div class="card">
+      <div class="row ">
+        {% if  post.header_image %}
+        <div class="col-md-3">
+            <img src="{{ post.header_image.url }}"  width="270" height="230"/>
+        </div>
+        {% endif %}
+          <div class="col-md-9 px-1">
+            <div class="card-block px-3">
+              <br>
+              <div class="col-0 mr-3">
+                {% if user.is_authenticated %}
+                {% if post.author.id == user.id %}
+                <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm dropdown-toggle float-right"
+                data-toggle="dropdown"></button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="{% url 'update_post' post.pk %}" class="dropdown-item">Edit</a>
+                    <a href="{% url 'delete_post' post.pk %}" class="dropdown-item">Delete</a>
+                  </li>
+                </ul>
+                {% endif %}
+                {% endif %}
+              <h4 class="card-title">{{ post.title }}
+                </h4>
+              <small>By: <a href="{% url 'show_profile_page' post.author.profile.id  %}" class="text-dark">
+                {{post.author.first_name }} {{ post.author.last_name }}</a></small>              
+              <small class="ml-2">{{ post.post_date }}
+                
+              </small><br />
+              <p class="card-text">
+                {{ post.body|slice:'300'|safe }}
+              </p>
+              {% if post.body|length > 300 %}
+              
+                <a href="{% url 'article-detail' post.pk %}" class="btn btn-secondary btn-sm">Read More</a>
+                <form action="{% url 'like_post' post.pk %}" method="post" class="float-right">
+                  {% csrf_token %}
+              
+                  {% if user.is_authenticated %}
+                    <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-outline-light btn-sm">
+                    👍🏻
+                    </button> 
+                  {% else %}
+                    <small><a href="{% url 'login' %}">Login to like</a></small> 
+                {% endif %}
+                {{ post.total_likes }} Likes
+                {% else %}
+                <form action="{% url 'like_post' post.pk %}" method="post">
+                  {% csrf_token %}
+                  {% if user.is_authenticated %}
+                  <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-outline-light btn-sm">
+                      👍🏻
+                  </button> 
+                  {% else %}
+                   <small><a href="{% url 'login' %}">Login to like</a></small> 
+                  {% endif %}
+                  {{ post.total_likes }} Likes
+                </form>
+
+                {% endif %}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endfor %}
+{% else %}
+
+    <h4 class="text-muted">Posts for this category does not exist...</h4>
+{% endif %}
+{% endblock %}
+</div>

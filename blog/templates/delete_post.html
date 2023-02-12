@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Blog Post
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% if post.author.id == user.id %}
+<div class="container">
+    <br>
+    <h4>Delete Post:</h4>
+    <br>
+    {% if  post.header_image %}
+    <div class="col-md-3">
+        <img src="{{ post.header_image.url }}"  class="w-100 align-middle"/>
+    </div>
+    {% endif %}
+    <br>
+    <form method="post" class="form-group">
+        {% csrf_token %}
+        <h4>{{ post.title }}</h4>
+        {{ post.body|safe }}
+        <br><br>
+        <button type="submit" class="btn btn-secondary">Delete</button>
+    </form>
+    
+</div>
+{% else %}
+<h4>You are not allowed to modify this!</h4>
+{% endif %}
+{% else %}
+<h4>You are not logged in!</h4>
+{% endif %}
+{% endblock %}

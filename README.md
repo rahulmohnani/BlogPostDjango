@@ -51,7 +51,7 @@ python manage.py migrate
 ```
 python manage.py createsuperuser
 ```
-10. To rum the project use this command.
+10. To run the project use this command.
 ```
 python manage.py runserver
 ```

@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 
 class Category(models.Model):
     CHOICES = [
+        ("Other", "Other"),
         ("Travel", "Travel"),
         ("Food and Drink", "Food and Drink"),
         ("Health and Fitness", "Health and Fitness"),
@@ -20,7 +21,6 @@ class Category(models.Model):
         ("Lifestyle", "Lifestyle"),
         ("Coding and Programming", "Coding and Programming"),
         ("Science and Technology", "Science and Technology"),
-        ("Other", "Other")
     ]
     
     name = models.CharField(max_length=255, choices=CHOICES, null=True, blank=True)

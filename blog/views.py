@@ -27,8 +27,13 @@ class HomeView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
+        categories_static = Category.CHOICES
+        cat_menu2 = []
+        for item in categories_static:
+            cat_menu2.append(item[0])
         context = super(HomeView, self).get_context_data(*args, **kwargs)
         context['cat_menu'] = cat_menu
+        context['cat_menu2'] = cat_menu2
         return context
  
        

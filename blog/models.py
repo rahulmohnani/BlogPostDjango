@@ -7,13 +7,30 @@ from django.db.models.signals import post_save
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=255, null=True, blank=True)
+    CHOICES = [
+        ("Travel", "Travel"),
+        ("Food and Drink", "Food and Drink"),
+        ("Health and Fitness", "Health and Fitness"),
+        ("Technology", "Technology"),
+        ("Business and Finance", "Business and Finance"),
+        ("Personal Development", "Personal Development"),
+        ("Arts and Entertainment", "Arts and Entertainment"),
+        ("Sports", "Sports"),
+        ("News and Politics", "News and Politics"),
+        ("Lifestyle", "Lifestyle"),
+        ("Coding and Programming", "Coding and Programming"),
+        ("Science and Technology", "Science and Technology"),
+        ("Other", "Other")
+    ]
+    
+    name = models.CharField(max_length=255, choices=CHOICES, null=True, blank=True)
     
     def __str__(self):
         return self.name
     
     def get_absolute_url(self):
         return reverse('home')
+
     
 
 class Profile(models.Model):

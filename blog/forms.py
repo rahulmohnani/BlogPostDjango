@@ -6,6 +6,7 @@ try:
     choice_list = []
     for item in choices:
         choice_list.append(item)
+    choice_list = set(choice_list.extend(Category.CHOICES))
 except:
     pass
 

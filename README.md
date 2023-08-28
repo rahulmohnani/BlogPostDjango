@@ -56,3 +56,15 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 11. The project will run on localhost port 8000. [Link](http://127.0.0.1:8000/)
+
+## You can also use Docker commands to run this project if you have Docker engine or Docker Desktop already installed in you local machine
+
+1. Building a docker image command (Make sure you are in project directory BlogPostDjango)
+
+```
+docker build -t my-django-blogpost-app .
+```
+2. Running docker container command
+```
+docker run -p 8000:8000 my-django-blogpost-app
+```

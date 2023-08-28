@@ -5,3 +5,4 @@ env
 members/__pycache__
 members/migrations
 db.sqlite3
+.vscode

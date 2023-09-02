@@ -62,9 +62,9 @@ python manage.py runserver
 1. Building a docker image command (Make sure you are in project directory BlogPostDjango)
 
 ```
-docker build -t django-blogpost-app-image .
+docker build -t django-blogpost-app .
 ```
 2. Running docker container command
 ```
-docker run -p 8000:8000 django-blogpost-app-container
+docker run -p 8000:8000 django-blogpost-app
 ```

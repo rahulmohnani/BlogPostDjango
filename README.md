@@ -8,7 +8,7 @@ git clone https://github.com/rahulmohnani/BlogPostDjango
 3. Install Virtual Environment using pip commands. You can refer to this link for installing virtual environment [Virtual Environment Docs](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/).
 Install virtual environment for windows command
 ```
-py -m pip install --user virtualenv
+python -m pip install --user virtualenv
 ```
 Install virtual environment for macOS/Unix
 ```
@@ -17,7 +17,7 @@ python3 -m pip install --user virtualenv
 4. After installing virtual environment create a virtual environment for downloading dependencies of particular version for this project. 
 Creating virtual environment command for windows
 ```
-py -m venv env
+python -m venv env
 ```
 Creating virtual environment command for macOs/Unix
 ```
